@@ -29,16 +29,21 @@ def taw(term):
 def taw_json(file_name):
     with open(os.getcwd() + '/' +file_name) as to_taw:
         to_taw = json.load(to_taw)
-    to_taw[:] = [taw(term) for term in to_taw.itervalues()]
+    taw_result = {}
+    for key, term in to_taw.iteritems():
+        ar_term = taw(term)
+        taw_result[key] = ar_term
     with open('ar_'+file_name, 'w') as outfile:
-        json.dump(to_taw, outfile)
-    # for term in to_taw.itervalues():
-    #     print("started in %s " %time.time())
-    #     print(taw(term))
-
+        json.dump(taw_result, outfile)
 
 if __name__ == '__main__':
+    stime = time.time()
     taw_json(sys.argv[1])
+    etime = time.time()
+    ttime = etime - stime
+    print("Started at %s" %stime)
+    print("Ended at %s" %etime)
+    print("Total is %s" %ttime)
     # s_time = time.time()
     # print(taw("Kenya"))
     # print("found in %s" %(time.time()-s_time))
