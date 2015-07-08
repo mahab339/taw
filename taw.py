@@ -23,7 +23,7 @@ def taw(term):
         except IndexError:
             ar_term = "arabic translation not found"
         return ar_term
-    return False
+    return term
 
 
 def taw_json(file_name):
@@ -32,7 +32,8 @@ def taw_json(file_name):
     taw_result = {}
     for key, term in to_taw.iteritems():
         ar_term = taw(term)
-        taw_result[key] = ar_term
+        taw_result[key] = ar_term.encode('utf-8')
+        print(taw_result[key])
     with open('ar_'+file_name, 'w') as outfile:
         json.dump(taw_result, outfile)
 
